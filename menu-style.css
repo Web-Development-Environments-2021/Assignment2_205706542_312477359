@@ -1,0 +1,25 @@
+.top-menu {
+    width: 50%;
+    overflow: auto;
+    background-color: blueviolet;
+    margin-left: 25%;
+}
+
+.top-menu ul {
+    list-style-type: none;
+}
+
+.top-menu li {
+    float: left;
+    color: yellow;
+    font-size: 28px;
+    text-align: center;
+    font-family: fantasy;
+    text-decoration: none;
+    width: 20%;
+}
+
+.top-menu li:hover {
+    background-color: deepskyblue;
+    cursor: pointer;
+}

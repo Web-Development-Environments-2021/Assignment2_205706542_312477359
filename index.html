@@ -1,21 +1,98 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>best-pacman</title>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<script type="text/javascript" src="./menu.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="menu-style.css">
 	</head>
 
 	<body>
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
+		<!--****************** HEADER ******************-->
+		<header>
+			(HEADER) best-pacman by nir&omer
+		</header>
+		
+		<!--****************** TOP MENU ******************-->
+		<div class="top-menu">
+			<ul>
+				<li><a onclick="set_active_menu_item('welcome')">WELCOME</a></li>
+				<li><a onclick="set_active_menu_item('register')">REGISTER</a></li>
+				<li><a onclick="set_active_menu_item('login')">LOGIN</a></li>
+				<li><a onclick="set_active_menu_item('settings')">SETTINGS</a></li>
+				<li><a onclick="set_active_menu_item('about')">ABOUT</a></li>
+			</ul>
 		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
+		
+		<!--****************** WELCOME ******************-->
+		<div id='welcome-div' class='div_box'>
+			<center>
+				<h1>HEY WELCOME TO OUR GAME!</h1>
+				<h2>Please login or register to start playing</h2>
+				<button id="register-btn" class="welcome-btn" type="button" onclick="set_active_menu_item('register')">REGISTER</button>
+				<br/>
+				<br/>
+				<button id="login-btn" class="welcome-btn" type="button" onclick="set_active_menu_item('login')">LOGIN</button>
+			</center>
 		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
+
+		<!--****************** REGISTER ******************-->
+		<div id='register-div' class='div-box'>
+			<center>
+				<form>
+					<div class="container">
+						<h1>Register</h1>
+					
+						<input type="text" placeholder="Username" name="username" id="usernaem" required>
+						<input type="password" placeholder="Password" name="password" id="password" required>
+						<input type="text" placeholder="Full Name" name="email" id="email" required>
+						<input type="text" placeholder="Email" name="email" id="email" required>
+						<input placeholder="Birthdate" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')"  name="birthdate" id="birthdate" required>
+						<hr>
+
+						<button type="submit" class="register-btn">Submit</button>
+
+					</div>
+				</form>
+			</center>
+		</div>
+
+		<!--****************** LOGIN ******************-->
+		<div id="login-div" class="div-box">
+			<cetner>
+				LOGIN DIV
+			</cetner>
+		</div>
+
+		<!--****************** SETTINGS ******************-->
+		<div id="settings-div" class="div-box">
+			<cetner>
+				SETTINGS DIV
+			</cetner>
+		</div>
+	
+		<!--****************** ABOUT ******************-->
+		<div id="about-div" class="div-box">
+			<cetner>
+				ABOUT DIV
+			</cetner>
+		</div>
+
+
+		<div id="game-div" class="div-box">
+			<div id="score">
+				<label for="lblScore">SCORE:</label>
+				<input id="lblScore" type="text" />
+			</div>
+			<div id="time">
+				<label for="lblTime">TIME:</label>
+				<input id="lblTime" type="text" />
+			</div>
+			<div id="game">
+				<canvas id="canvas" height="600" width="600"></canvas>
+			</div>
 		</div>
 	</body>
 </html>
