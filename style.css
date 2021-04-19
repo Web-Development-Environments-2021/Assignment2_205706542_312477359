@@ -19,6 +19,7 @@ body {
     width: 230px;
     height: 70px;
     font-size: 24px;
+    border-radius: 10px;
 }
 
 .welcome-btn:hover {
@@ -35,7 +36,7 @@ body {
     font-size: 28px;
 }
 
-#register-div input {
+input.reg-log-form {
     font-size: 24px;
     width: 50%;
     box-sizing: border-box;
@@ -45,7 +46,7 @@ body {
     border-radius: 25px;
 }
 
-#register-div button {
+button.reg-log-form {
     font-size: 24px;
     width: 50%;
     box-sizing: border-box;
@@ -56,16 +57,21 @@ body {
     background-color: khaki;
 }
 
-#register-div button:hover {
+button:hover.reg-log-form {
     background-color: yellow;
+    cursor: pointer;
 }
 
-input:focus {
+input:focus.reg-log-form {
     background-color: gainsboro;
 }
 
 #login-div {
     display: none;
+    width: 50%;
+    margin-left: 25%;
+    color: white;
+    font-size: 28px;
 }
 
 #settings-div {

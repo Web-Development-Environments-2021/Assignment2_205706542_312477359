@@ -42,17 +42,18 @@
 		<div id='register-div' class='div-box'>
 			<center>
 				<form>
-					<div class="container">
+					<div class='reg-log-form'>
+						
 						<h1>Register</h1>
 					
-						<input type="text" placeholder="Username" name="username" id="usernaem" required>
-						<input type="password" placeholder="Password" name="password" id="password" required>
-						<input type="text" placeholder="Full Name" name="email" id="email" required>
-						<input type="text" placeholder="Email" name="email" id="email" required>
-						<input placeholder="Birthdate" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')"  name="birthdate" id="birthdate" required>
+						<input type="text" class='reg-log-form' placeholder="Username" name="reg-username" id="reg-username" required>
+						<input type="password" class='reg-log-form' placeholder="Password" name="reg-password" id="reg-password" required>
+						<input type="text" class='reg-log-form' placeholder="Full Name" name="reg-fullname" id="reg-fullname" required>
+						<input type="text" class='reg-log-form' placeholder="Email" name="reg-email" id="email" required>
+						<input placeholder="Birthdate" class='reg-log-form' type="text" onfocus="(this.type='date')" onblur="(this.type='text')"  name="reg-birthdate" id="reg-birthdate" required>
 						<hr>
 
-						<button type="submit" class="register-btn">Submit</button>
+						<button type="submit" class='reg-log-form'>Submit</button>
 
 					</div>
 				</form>
@@ -60,10 +61,20 @@
 		</div>
 
 		<!--****************** LOGIN ******************-->
-		<div id="login-div" class="div-box">
-			<cetner>
-				LOGIN DIV
-			</cetner>
+		<div id='login-div' class='div-box'>
+			<center>
+				<form>
+						
+					<h1>Login</h1>
+				
+					<input type="text" class='reg-log-form' placeholder="Username" name="login-username" id="login-usernaem" required>
+					<input type="password" class='reg-log-form' placeholder="Password" name="login-password" id="login-password" required>
+					<hr>
+
+					<button type="submit" class='reg-log-form'>Login</button>
+
+				</form>
+			</center>
 		</div>
 
 		<!--****************** SETTINGS ******************-->
