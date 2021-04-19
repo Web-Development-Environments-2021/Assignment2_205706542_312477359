@@ -3,10 +3,11 @@
 	<head>
 		<title>best-pacman</title>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
-		<script type="text/javascript" src="./app.js"></script>
-		<script type="text/javascript" src="./menu.js"></script>
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<link rel="stylesheet" type="text/css" href="menu-style.css">
+		<script type="text/javascript" src="./javascript/app.js"></script>
+		<script type="text/javascript" src="./javascript/menu.js"></script>
+		<script type="text/javascript" src="./javascript/user_mgmt.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/menu-style.css">
 	</head>
 
 	<body>
@@ -41,19 +42,23 @@
 		<!--****************** REGISTER ******************-->
 		<div id='register-div' class='div-box'>
 			<center>
-				<form>
+				<form id='registration-form' action="">
 					<div class='reg-log-form'>
 						
 						<h1>Register</h1>
 					
-						<input type="text" class='reg-log-form' placeholder="Username" name="reg-username" id="reg-username" required>
-						<input type="password" class='reg-log-form' placeholder="Password" name="reg-password" id="reg-password" required>
-						<input type="text" class='reg-log-form' placeholder="Full Name" name="reg-fullname" id="reg-fullname" required>
-						<input type="text" class='reg-log-form' placeholder="Email" name="reg-email" id="email" required>
-						<input placeholder="Birthdate" class='reg-log-form' type="text" onfocus="(this.type='date')" onblur="(this.type='text')"  name="reg-birthdate" id="reg-birthdate" required>
+						<input type="text" class='reg-log-form' placeholder="Username" name="regUsername" id="reg-username">
+						<input type="password" class='reg-log-form' placeholder="Password" name="regPassword" id="reg-password">
+						<input type="text" class='reg-log-form' placeholder="Full Name" name="regFullname" id="reg-fullname">
+						<input type="text" class='reg-log-form' placeholder="Email" name="regEmail" id="email">
+						<input placeholder="Birthdate" class='reg-log-form' type="text" onfocus="(this.type='date')" onblur="(this.type='text')"  name="regBirthdate" id="reg-birthdate">
+						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 						<hr>
 
 						<button type="submit" class='reg-log-form'>Submit</button>
+
+						<p id="registration-msg"></p>
 
 					</div>
 				</form>
@@ -61,17 +66,19 @@
 		</div>
 
 		<!--****************** LOGIN ******************-->
-		<div id='login-div' class='div-box'>
+		<div id='login-div' class='div-box' action="">
 			<center>
-				<form>
+				<form id='login-form' action="">
 						
 					<h1>Login</h1>
 				
-					<input type="text" class='reg-log-form' placeholder="Username" name="login-username" id="login-usernaem" required>
-					<input type="password" class='reg-log-form' placeholder="Password" name="login-password" id="login-password" required>
+					<input type="text" class='reg-log-form' placeholder="Username" name="loginUsername" id="login-usernaem">
+					<input type="password" class='reg-log-form' placeholder="Password" name="loginPassword" id="login-password">
 					<hr>
 
 					<button type="submit" class='reg-log-form'>Login</button>
+
+					<p id="login-error"></p>
 
 				</form>
 			</center>

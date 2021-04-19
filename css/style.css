@@ -41,9 +41,11 @@ input.reg-log-form {
     width: 50%;
     box-sizing: border-box;
     border: 5px solid red;
-    margin: 1%;
+    margin-top: 3%;
     padding: 1%;
     border-radius: 25px;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 button.reg-log-form {
@@ -84,4 +86,21 @@ input:focus.reg-log-form {
 
 #game-div {
     display: none;
+}
+
+.error {
+    display: inline;
+    color: red;
+    font-style: italic;
+    font-size: 24px;
+}
+
+#login-error { 
+    color: red;
+    font-size: 18;
+}
+
+#registratoin-msg { 
+    color: white;
+    font-size: 18;
 }
