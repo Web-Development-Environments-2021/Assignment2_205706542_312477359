@@ -90,7 +90,11 @@
 				<cetner>
 					<form id='settings-form' action="">
 						
+						<br/>
 						<h1>Choose your game settigns and hit the Start button to begin</h1>
+						<br/>
+						<hr>
+						<br/>
 
 						<div class='input-key-div'>
 							<div class='cell'>Move Up:</div>
@@ -121,11 +125,49 @@
 							}
 						</script>
 
+						<br/>
+						<br/>
+
+						<div class='food-colors'>
+							<div class='food-color'>
+								5 points food color:
+								<input type="color">
+							</div>
+							<div class='food-color'>
+								15 points food color:
+								<input type="color">
+							</div>
+							<div class='food-color'>
+								25 points food color:
+								<input type="color">
+							</div>
+						</div>
+
+						<br/>
+						<br/>
+
+						Game Time:
+						<input class='game-time-input' type="number" min=60 value=60>
+
+						Number of Monsters:
+						<select name="mosnter-count" id="monster-count">
+							<option value=1>1</option>
+							<option value=2>2</option>
+							<option value=3>3</option>
+							<option value=4>4</option>
+						</select>
+
+						<br/>
+						<br/>
+
+						<button class='random-btn'>Random!</button>
+
+						<br/>
+						<br/>
+
 						<hr>
 
 						<button type="submit" class='reg-log-form'>Start!</button>
-
-						<p id="login-error"></p>
 
 					</form>
 				</cetner>
