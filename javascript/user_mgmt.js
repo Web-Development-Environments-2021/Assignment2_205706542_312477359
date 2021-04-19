@@ -76,7 +76,7 @@ $(document).ready(function () {
 		submitHandler: function(form) {
 			let input_username = document.getElementById("registration-form").regUsername.value;
 			let input_password = document.getElementById("registration-form").regPassword.value;
-			register(input_username, input_password)
+			register(input_username, input_password);
 		}
 	});
 });
@@ -117,13 +117,15 @@ function login(username, password) {
 		document.getElementById("login-error").innerHTML = "Invalid username or password."
 	}
 	else {
-		document.getElementById("login-error").innerHTML = ""
+		document.getElementById("login-error").innerHTML = "";
+		document.getElementById("login-form").reset();
+		set_active_menu_item('settings');
 	}
 }
 
 // -- REGISTERING --
 function register(username, password) {
 	users[username] = password;
-	document.getElementById("registration-msg").innerHTML = "Registration completed! You can now log in."
-	document.getElementById("registration-form").reset()
+	document.getElementById("registration-msg").innerHTML = "Registration completed! You can now log in.";
+	document.getElementById("registration-form").reset();
 }

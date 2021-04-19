@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="./javascript/user_mgmt.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/menu-style.css">
+		<link rel="stylesheet" type="text/css" href="css/settings-style.css">
 	</head>
 
 	<body>
@@ -22,7 +23,6 @@
 				<li><a onclick="set_active_menu_item('welcome')">WELCOME</a></li>
 				<li><a onclick="set_active_menu_item('register')">REGISTER</a></li>
 				<li><a onclick="set_active_menu_item('login')">LOGIN</a></li>
-				<li><a onclick="set_active_menu_item('settings')">SETTINGS</a></li>
 				<li><a onclick="set_active_menu_item('about')">ABOUT</a></li>
 			</ul>
 		</div>
@@ -86,9 +86,50 @@
 
 		<!--****************** SETTINGS ******************-->
 		<div id="settings-div" class="div-box">
-			<cetner>
-				SETTINGS DIV
-			</cetner>
+			<div class="settings">
+				<cetner>
+					<form id='settings-form' action="">
+						
+						<h1>Choose your game settigns and hit the Start button to begin</h1>
+
+						<div class='input-key-div'>
+							<div class='cell'>Move Up:</div>
+							<input type="button" class='settings-input' onclick="setKey('up')" class='settings-form' name="upKey" id="upKey" value='Arrow Up'>
+							<div class='cell'>Move Down:</div>
+							<input type="button" class='settings-input' onclick="setKey('down')" class='settings-form' name="downKey" id="downKey" value='Arrow Down'>
+						</div>	
+
+						<div class='input-key-div'>
+							<div class='cell'>Move Left:</div>
+							<input type="button" class='settings-input' onclick="setKey('left')" class='settings-form' name="leftKey" id="leftKey" value='Arrow Left'>
+							<div class='cell'>Move Right:</div>
+							<input type="button" class='settings-input' onclick="setKey('right')" class='settings-form' name="rightKey" id="rightKey" value='Arrow Right'>
+						</div>	
+
+						<br/>
+						Food Count: <span id='display-food-count'></span>
+						<input type="range" min="50" max="90" value="70" class="food-count-slider" id="food-count">
+						
+						<script>
+							// update the display value of the slider
+							var slider = document.getElementById("food-count");
+							var output = document.getElementById("display-food-count");
+							output.innerHTML = slider.value;
+							
+							slider.oninput = function() {
+								output.innerHTML = this.value;
+							}
+						</script>
+
+						<hr>
+
+						<button type="submit" class='reg-log-form'>Start!</button>
+
+						<p id="login-error"></p>
+
+					</form>
+				</cetner>
+			</div>
 		</div>
 	
 		<!--****************** ABOUT ******************-->

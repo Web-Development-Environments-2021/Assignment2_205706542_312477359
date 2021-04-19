@@ -78,6 +78,8 @@ input:focus.reg-log-form {
 
 #settings-div {
     display: none;
+    width: 50%;
+    margin-left: 25%;
 }
 
 #about-div {

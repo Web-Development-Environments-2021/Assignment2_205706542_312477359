@@ -1,0 +1,76 @@
+.settings {
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+
+.settings h1 {
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    font-family: cursive;
+}
+
+.input-key-div {
+    display: table;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+input.settings-input {
+    display: table-cell;
+    font-size: 22px;
+    box-sizing: border-box;
+    border: 5px solid red;
+    border-radius: 30px;
+    width: 250px;
+    height: 60px;
+    margin-right: 3%;
+}
+
+input:hover.settings-input {
+    background-color: yellow;
+    cursor: pointer;
+}
+
+.cell {
+    display: table-cell;
+    vertical-align: middle;
+    width: 150px;
+}
+
+.food-count-slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 75%;
+    height: 15px;
+    border-radius: 10px;
+    opacity: 0.5;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: yellow;
+    -webkit-transition: .3s;
+    transition: opacity .3s;
+}
+
+.food-count-slider:hover {
+    opacity: 1;
+}
+
+.food-count-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: red;
+    cursor: pointer;
+  }
+  
+  .food-count-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: red;
+    border-radius: 50%;
+    cursor: pointer;
+  }
