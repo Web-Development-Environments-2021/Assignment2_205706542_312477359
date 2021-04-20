@@ -28,3 +28,9 @@ window.onclick = function(event) {
     about_modal.style.display = "none";
   }
 }
+
+$(document).keydown(function(event) { 
+    if (event.keyCode == 27) { 
+        about_modal.style.display = "none";
+    }
+});
