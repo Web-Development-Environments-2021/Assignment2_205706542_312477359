@@ -4,11 +4,11 @@
 		<title>best-pacman</title>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./javascript/app.js"></script>
-		<script type="text/javascript" src="./javascript/menu.js"></script>
-		<script type="text/javascript" src="./javascript/user_mgmt.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/menu-style.css">
 		<link rel="stylesheet" type="text/css" href="css/settings-style.css">
+		<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=VT323">
 	</head>
 
 	<body>
@@ -23,7 +23,7 @@
 				<li><a onclick="set_active_menu_item('welcome')">WELCOME</a></li>
 				<li><a onclick="set_active_menu_item('register')">REGISTER</a></li>
 				<li><a onclick="set_active_menu_item('login')">LOGIN</a></li>
-				<li><a onclick="set_active_menu_item('about')">ABOUT</a></li>
+				<li><a onclick="open_about_modal()">ABOUT</a></li>
 			</ul>
 		</div>
 		
@@ -31,7 +31,7 @@
 		<div id='welcome-div' class='div_box'>
 			<center>
 				<h1>HEY WELCOME TO OUR GAME!</h1>
-				<h2>Please login or register to start playing</h2>
+				<h3>Please login or register to start playing</h2>
 				<button id="register-btn" class="welcome-btn" type="button" onclick="set_active_menu_item('register')">REGISTER</button>
 				<br/>
 				<br/>
@@ -175,10 +175,17 @@
 		</div>
 	
 		<!--****************** ABOUT ******************-->
-		<div id="about-div" class="div-box">
-			<cetner>
-				ABOUT DIV
-			</cetner>
+		<div id="about-modal-id" class="modal fade">
+			<div class="modal-content">
+			    <span id="about-close-btn" class="close">&times;</span>
+			    <h1 style='font-size: 72px;'>ABOUT</h1>
+				<hr>
+				<br/>
+				<p>THIS GAME WAS DEVELOPED BY NIR STEINFELD AND OMER MARCO</p>
+			    <p>IT IS CURRENTLY THE BEST PACMAN GAME KNOWN TO EXIST</p>
+				<p>WE USE JQUERY TO VALIDATE USER INPUT</p>
+				<p>!!!INSERT DIFICULTIES HERE!!</p>
+			</div>
 		</div>
 
 
@@ -196,4 +203,8 @@
 			</div>
 		</div>
 	</body>
+
+	<script type="text/javascript" src="./javascript/menu.js"></script>
+	<script type="text/javascript" src="./javascript/user_mgmt.js"></script>
+
 </html>

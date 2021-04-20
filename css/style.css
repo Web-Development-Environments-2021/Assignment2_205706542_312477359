@@ -9,12 +9,13 @@ body {
 
 #welcome-div {
     color: white;
-    font-size: 32px;
+    font-size: 52px;
+    font-family: vt323;
 }
 
 .welcome-btn {
     background-color: yellow;
-    color: blue;
+    color: red;
     text-align: center;
     width: 230px;
     height: 70px;
