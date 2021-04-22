@@ -42,7 +42,7 @@
 		<!--****************** REGISTER ******************-->
 		<div id='register-div' class='div-box'>
 			<center>
-				<form id='registration-form' action="">
+				<form id='registration-form'>
 					<div class='reg-log-form'>
 						
 						<h1>Register</h1>
@@ -68,7 +68,7 @@
 		<!--****************** LOGIN ******************-->
 		<div id='login-div' class='div-box' action="">
 			<center>
-				<form id='login-form' action="">
+				<form id='login-form'>
 						
 					<h1>Login</h1>
 				
@@ -98,48 +98,37 @@
 
 						<div class='input-key-div'>
 							<div class='cell'>Move Up:</div>
-							<input type="button" class='settings-input' onclick="setKey('up')" class='settings-form' name="upKey" id="upKey" value='Arrow Up'>
+							<input type="button" class='settings-input' onclick="highlightKeyButton('up')" onkeydown="setKey(event, 'up')" class='settings-form' name="upKey" id="upKey" value='Arrow Up'>
 							<div class='cell'>Move Down:</div>
-							<input type="button" class='settings-input' onclick="setKey('down')" class='settings-form' name="downKey" id="downKey" value='Arrow Down'>
+							<input type="button" class='settings-input' onclick="highlightKeyButton('down')" onkeydown="setKey(event, 'down')" class='settings-form' name="downKey" id="downKey" value='Arrow Down'>
 						</div>	
 
 						<div class='input-key-div'>
 							<div class='cell'>Move Left:</div>
-							<input type="button" class='settings-input' onclick="setKey('left')" class='settings-form' name="leftKey" id="leftKey" value='Arrow Left'>
+							<input type="button" class='settings-input' onclick="highlightKeyButton('left')" onkeydown="setKey(event, 'left')" class='settings-form' name="leftKey" id="leftKey" value='Arrow Left'>
 							<div class='cell'>Move Right:</div>
-							<input type="button" class='settings-input' onclick="setKey('right')" class='settings-form' name="rightKey" id="rightKey" value='Arrow Right'>
+							<input type="button" class='settings-input' onclick="highlightKeyButton('right')" onkeydown="setKey(event, 'right')" class='settings-form' name="rightKey" id="rightKey" value='Arrow Right'>
 						</div>	
 
 						<br/>
 						Food Count: <span id='display-food-count'></span>
-						<input type="range" min="50" max="90" value="70" class="food-count-slider" id="food-count">
+						<input type="range" min="50" max="90" value="70" class="food-count-slider" id="food-count" oninput='updateSliderValue()'>
 						
-						<script>
-							// update the display value of the slider
-							var slider = document.getElementById("food-count");
-							var output = document.getElementById("display-food-count");
-							output.innerHTML = slider.value;
-							
-							slider.oninput = function() {
-								output.innerHTML = this.value;
-							}
-						</script>
-
 						<br/>
 						<br/>
 
 						<div class='food-colors'>
 							<div class='food-color'>
 								5 points food color:
-								<input type="color">
+								<input type="color" id='food-color-low'>
 							</div>
 							<div class='food-color'>
 								15 points food color:
-								<input type="color">
+								<input type="color" id='food-color-mid'>
 							</div>
 							<div class='food-color'>
 								25 points food color:
-								<input type="color">
+								<input type="color" id='food-color-high'>
 							</div>
 						</div>
 
@@ -147,10 +136,10 @@
 						<br/>
 
 						Game Time:
-						<input class='game-time-input' type="number" min=60 value=60>
+						<input class='game-time-input' id='game-time-input-id' type="number" min=60 value=60>
 
 						Number of Monsters:
-						<select name="mosnter-count" id="monster-count">
+						<select id="monster-count-id">
 							<option value=1>1</option>
 							<option value=2>2</option>
 							<option value=3>3</option>
@@ -160,7 +149,7 @@
 						<br/>
 						<br/>
 
-						<button class='random-btn'>Random!</button>
+						<button type="button" class='random-btn' onclick="randomizeSettings()">Random!</button>
 
 						<br/>
 						<br/>
