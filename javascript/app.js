@@ -35,6 +35,7 @@ function Start() {
 
 	configureGameSettings();
 
+	lblUserName.value = username;
 	game_music.play();
 
 	bonus.show = true;
@@ -156,8 +157,10 @@ function GetKeyPressed() {
 
 function Draw(x) {
 	canvas.width = canvas.width;  // clean board
+	
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
+
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 

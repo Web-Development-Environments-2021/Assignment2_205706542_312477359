@@ -1,3 +1,5 @@
+var username;
+
 var users = {
 	'k': 'k'
 };  // username: password dictionary
@@ -110,16 +112,17 @@ $(function() {
 
 
 // -- LOGGING IN --
-function login(username, password) {
+function login(input_username, input_password) {
 	
 	// username doesn't exist / wrong password
-	if (!(username in users) || !(users[username] === password)) {
+	if (!(input_username in users) || !(users[input_username] === input_password)) {
 		document.getElementById("login-error").innerHTML = "Invalid username or password."
 	}
 	else {
 		document.getElementById("login-error").innerHTML = "";
 		document.getElementById("login-form").reset();
 		set_active_menu_item('settings');
+		username = input_username;
 	}
 }
 
