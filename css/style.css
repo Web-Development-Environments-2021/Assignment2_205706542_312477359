@@ -1,10 +1,23 @@
 body {
-    background-color: purple;
+    background-image: url('../media/bg.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 
 .box {
     box-sizing: border-box;
     position:absolute;
+}
+
+/* Header */
+header img {
+    float: left;
+}
+
+header h1, h2 {
+    color: white;
+    padding-left: 150px;
 }
 
 #welcome-div {
