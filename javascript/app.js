@@ -6,9 +6,16 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
-var mySound;
-var eatingSound;
 var context = canvas.getContext('2d');
+
+cell_height = 60;
+cell_width = 60;
+
+var game_music = new Audio('media/game_music.mp3');
+var bonus = new Object();
+bonus.image = new Image(cell_width, cell_height);
+bonus.image.src = './media/hamburger.jpg';
+bonus.show = true;
 
 // settings
 var key_up = 38;
@@ -28,6 +35,9 @@ function Start() {
 
 	configureGameSettings();
 
+	game_music.play();
+
+	bonus.show = true;
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
@@ -36,9 +46,10 @@ function Start() {
 	start_time = new Date();
 	
 	for (var i = 0; i < 10; i++) {
-		board[i] = new Array();
-		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		
+		// 7:food-high, 6:food-mid, 1:food-low, 2:pacman, 0:nothing, 5:bonus, 4:wall
+		board[i] = new Array();
+
 		for (var j = 0; j < 10; j++) {
 			if (
 				(i == 3 && j == 3) ||
@@ -83,6 +94,12 @@ function Start() {
 		food_remain--;
 	}
 	
+	// bonus
+	bonus.also = board[7][7]
+	board[7][7] = 5;
+	bonus.x = 7
+	bonus.y = 7
+
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -143,9 +160,15 @@ function Draw(x) {
 	lblTime.value = time_elapsed;
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
+
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
+
+			context.beginPath();
+			context.rect(center.x - 30, center.y - 30, 60, 60);
+			context.fillStyle = "black";
+			context.fill();
 		
 			if (board[i][j] == 2 ) {  // pacman
 				if(x==4) {
@@ -232,69 +255,139 @@ function Draw(x) {
 				context.fillStyle = "grey";
 				context.fill();
 			}
+
+			else if (board[i][j] == 5 && bonus.show) {  // bonus
+				context.drawImage(bonus.image, center.x - cell_width / 2, center.y - cell_height / 2, cell_height, cell_height);
+			}
 		}
 	}
 }
 
 function UpdatePosition() {
+	
 	board[shape.i][shape.j] = 0;
+
 	var x = GetKeyPressed();
-	if (x == 1) {// up
+
+	if (x == 1) {  //  up
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
-			shape.j--;			
+			shape.j--;
 		}
 	}
-	if (x == 2) {//down
+	if (x == 2) {  // down
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 		}
 	}
-	if (x == 3) {
+	if (x == 3) {  // right
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
 		}
 	}
-	if (x == 4) {
+	if (x == 4) {  // left
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 		}
 	}
+
+	if (bonus.show == true) {
+		move_bonus();
+	}
+
 	if (board[shape.i][shape.j] == 1) {  // food-low
-		score+=5;
+		score += 5;
 	}
-	if (board[shape.i][shape.j] == 6) {  // food-med
-		score+=15;
+	else if (board[shape.i][shape.j] == 6) {  // food-med
+		score += 15;
 	}
-	if (board[shape.i][shape.j] == 1) {  // food-high
-		score+=25;
+	else if (board[shape.i][shape.j] == 7) {  // food-high
+		score += 25;
 	}
+	else if (board[shape.i][shape.j] == 5 && bonus.show == true) {  // bonus
+		bonus.show = false;
+		// ! add here monster check !
+		score += 50;
+		if (bonus.also == 1) {
+			score += 5;
+		}
+		else if (bonus.also == 6) {
+			score += 15;
+		}
+		else if (bonus.also == 7) {
+			score += 25;
+		}
+	}
+	
 	board[shape.i][shape.j] = 2;
+
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 500) {
+	if (score >= 500 || time_elapsed >= game_time) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
+		game_music.pause();
+		game_music.time_elapsed = 0;
 	} 
 	else {
 		Draw(x);
 	}
 }
 
-class sound {
-	constructor(src) {
-		this.sound = document.createElement("audio");
-		this.sound.src = src;
-		this.sound.setAttribute("preload", "auto");
-		this.sound.setAttribute("controls", "none");
-		this.sound.style.display = "none";
-		document.body.appendChild(this.sound);
-		this.play = function () {
-			
-			this.sound.play();
-		
-		};
-		this.stop = function () {
-			this.sound.pause();
-		};
+// *** BONUS  LOGIC *** //
+function calc_available_bonus_moves() {
+	// return array of avaliable moves for the bonus
+	// 0-up , 1-down , 2-left , 3-right
+	let available_directions = []
+
+	if (bonus.y > 0 && board[bonus.x][bonus.y - 1] != 4) {  // up
+		available_directions.push(0)
 	}
+	if (bonus.y < 9 && board[bonus.x][bonus.y + 1] != 4) {  // down
+		available_directions.push(1)
+	}
+	if (bonus.x > 0 && board[bonus.x - 1][bonus.y] != 4) {  // left
+		available_directions.push(2)
+	}
+	if (bonus.x < 9 && board[bonus.x + 1][bonus.y] != 4) {  // right
+		available_directions.push(3)
+	}
+	return available_directions
+}
+
+function move_bonus() {
+
+	if ( (Math.abs(bonus.x - shape.i) <= 1) && (Math.abs(bonus.y - shape.j) <= 1) ) {
+		board[bonus.x][bonus.y] = bonus.also;
+		bonus.also = board[bonus.x][bonus.y];
+		board[bonus.x][bonus.y] = 5;
+		bonus.x = shape.i;
+		bonus.y = shape.j;
+		return;
+	}
+
+	let available_directions = calc_available_bonus_moves();
+	
+	if (bonus.also != 2) {
+		board[bonus.x][bonus.y] = bonus.also;  // put back what was there before
+	}
+
+	let dir = available_directions[Math.floor(Math.random() * available_directions.length)];
+
+	// update bonus coordinates
+	if (dir == 0) {  // up
+		bonus.y -= 1;
+	}
+	else if (dir == 1) {  // down
+		bonus.y += 1;
+	}
+	else if (dir == 2) {  // left
+		bonus.x -= 1;
+	}
+	else if (dir == 3) {  // right
+		bonus.x += 1;
+	}
+
+	bonus.also = board[bonus.x][bonus.y];
+	board[bonus.x][bonus.y] = 5;
+
 }

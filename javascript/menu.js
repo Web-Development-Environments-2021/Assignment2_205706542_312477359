@@ -1,6 +1,11 @@
 var current_active_menu_item = "welcome"
 
 function hide_active_menu_item() {
+    if (current_active_menu_item == 'game') {
+        game_music.pause()
+        game_music.currentTime = 0;
+        window.clearInterval(interval);
+    }
     $('#' + current_active_menu_item + '-div').hide();
 }
 
