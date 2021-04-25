@@ -116,6 +116,19 @@ function setKey(event, direction) {
     keyCode = event.keyCode;
     keyName = getKeyName(keyCode)
     document.getElementById(direction + 'Key').value = keyName;
+    
+    if (direction == 'up') {
+        key_up = event.keyCode;
+    }
+    else if (direction == 'down') {
+        key_down = event.keyCode;
+    }
+    else if (direction == 'left') {
+        key_left = event.keyCode;
+    }
+    else if (direction == 'right') {
+        key_right = event.keyCode;
+    }
 }
 
 function updateSliderValue() {

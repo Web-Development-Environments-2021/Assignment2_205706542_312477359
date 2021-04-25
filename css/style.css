@@ -100,10 +100,6 @@ input:focus.reg-log-form {
     display: none;
 }
 
-#game-div {
-    display: none;
-}
-
 .error {
     display: inline;
     color: red;
@@ -132,6 +128,22 @@ footer {
 }
 
 #game-div {
+    display: none;
     background-color: black;
     width: 50%;
+    color: yellow;
+    font-family: vt323;
+    font-size: 24px;
+}
+
+#game-div input {
+    background-color: black;
+    color: yellow;
+    font-family: vt323;
+    font-size: 24px;
+    text-align: center;
+}
+
+.game-lbl {
+    display: inline-block;
 }

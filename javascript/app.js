@@ -10,6 +10,12 @@ var mySound;
 var eatingSound;
 var context = canvas.getContext('2d');
 
+// settings
+var key_up = 38;
+var key_down = 40;
+var key_left = 37;
+var key_right = 39;
+
 var food_remain;
 
 var food_low_color;
@@ -19,17 +25,8 @@ var food_high_color;
 var game_time;
 
 function Start() {
-	
-	// game settings
-	// BUTTONS HERE
 
-	food_remain = document.getElementById('food-count').value;
-	
-	food_low_color = document.getElementById('food-color-low').value;
-	food_mid_color = document.getElementById('food-color-mid').value;
-	food_high_color = document.getElementById('food-color-high').value;
-
-	game_time = document.getElementById('game-time-input-id').value;
+	configureGameSettings();
 
 	board = new Array();
 	score = 0;
@@ -104,6 +101,17 @@ function Start() {
 	interval = setInterval(UpdatePosition, 250);
 }
 
+function configureGameSettings() {
+
+	food_remain = document.getElementById('food-count').value;
+	
+	food_low_color = document.getElementById('food-color-low').value;
+	food_mid_color = document.getElementById('food-color-mid').value;
+	food_high_color = document.getElementById('food-color-high').value;
+
+	game_time = document.getElementById('game-time-input-id').value;
+}
+
 function findRandomEmptyCell(board) {
 	var i = Math.floor(Math.random() * 9 + 1);
 	var j = Math.floor(Math.random() * 9 + 1);
@@ -115,22 +123,22 @@ function findRandomEmptyCell(board) {
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[key_up]) {  // up
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[key_down]) {  // down
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[key_left]) {  // left
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[key_right]) {  // right
 		return 4;
 	}
 }
 
 function Draw(x) {
-	canvas.width = canvas.width; //clean board
+	canvas.width = canvas.width;  // clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
 	for (var i = 0; i < 10; i++) {
@@ -138,8 +146,8 @@ function Draw(x) {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			// pacman
-			if (board[i][j] == 2 ) {
+		
+			if (board[i][j] == 2 ) {  // pacman
 				if(x==4) {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 0.25 * Math.PI, 1.75 * Math.PI); // half circle mo
@@ -196,29 +204,29 @@ function Draw(x) {
 					context.fill();			
 				}
 			} 
-			// food-low
-			else if (board[i][j] == 1) {
+			
+			else if (board[i][j] == 1) {  // food-low
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
 				context.fillStyle = food_low_color;
 				context.fill();
 			}
-			// food-mid
-			else if (board[i][j] == 6) {
+			
+			else if (board[i][j] == 6) {  // food-mid
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
 				context.fillStyle = food_mid_color;
 				context.fill();
 			}
-			// food-high
-			else if (board[i][j] == 7) {
+			
+			else if (board[i][j] == 7) {  // food-high
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
 				context.fillStyle = food_high_color;
 				context.fill();
 			}
-			// wall
-			 else if (board[i][j] == 4) {
+			
+			 else if (board[i][j] == 4) {  // wall
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey";
@@ -253,15 +261,12 @@ function UpdatePosition() {
 	}
 	if (board[shape.i][shape.j] == 1) {  // food-low
 		score+=5;
-		eatingSound.play();
 	}
 	if (board[shape.i][shape.j] == 6) {  // food-med
 		score+=15;
-		eatingSound.play();
 	}
 	if (board[shape.i][shape.j] == 1) {  // food-high
 		score+=25;
-		eatingSound.play();
 	}
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
