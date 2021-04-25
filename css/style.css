@@ -120,3 +120,18 @@ input:focus.reg-log-form {
     color: white;
     font-size: 18;
 }
+
+/* FOOTER */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+}
+
+#game-div {
+    background-color: black;
+    width: 50%;
+}

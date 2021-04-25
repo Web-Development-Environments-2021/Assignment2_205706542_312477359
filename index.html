@@ -3,7 +3,6 @@
 	<head>
 		<title>best-pacman</title>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
-		<script type="text/javascript" src="./javascript/app.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/menu-style.css">
 		<link rel="stylesheet" type="text/css" href="css/settings-style.css">
@@ -150,11 +149,9 @@
 						</select>
 
 						<br/>
-						<br/>
 
 						<button type="button" class='random-btn' onclick="randomizeSettings()">RANDOM!</button>
 
-						<br/>
 						<br/>
 
 						<hr>
@@ -180,23 +177,33 @@
 			</div>
 		</div>
 
+		<!--****************** GAME ******************-->
+		<center>
+			<div id="game-div" class="div-box">
+				<div id="score">
+					<label for="lblScore">SCORE:</label>
+					<input id="lblScore" type="text" />
+				</div>
+				<div id="time">
+					<label for="lblTime">TIME:</label>
+					<input id="lblTime" type="text" />
+				</div>
+				<div id="game">
+					<canvas id="canvas" height="600" width="600"></canvas>
+				</div>
+			</div>
+		</center>
 
-		<div id="game-div" class="div-box">
-			<div id="score">
-				<label for="lblScore">SCORE:</label>
-				<input id="lblScore" type="text" />
-			</div>
-			<div id="time">
-				<label for="lblTime">TIME:</label>
-				<input id="lblTime" type="text" />
-			</div>
-			<div id="game">
-				<canvas id="canvas" height="600" width="600"></canvas>
-			</div>
-		</div>
+		<!--****************** FOOTER ******************-->
+		<footer>
+			This website was created as part of "Web Development Environments" course, BGU.
+			For any question or suggestion contact us at nirstein@post.bgu.ac.il or omermarc@post.bgu.ac.il
+		</footer>
 	</body>
 
 	<script type="text/javascript" src="./javascript/menu.js"></script>
 	<script type="text/javascript" src="./javascript/user_mgmt.js"></script>
+	<audio id="game-music" src="../media/game_music.wav" preload="auto"></audio>
+	<script type="text/javascript" src="./javascript/app.js"></script>	
 
 </html>
