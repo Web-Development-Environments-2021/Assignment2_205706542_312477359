@@ -10,15 +10,31 @@ var mySound;
 var eatingSound;
 var context = canvas.getContext('2d');
 
+var food_remain;
+
+var food_low_color;
+var food_mid_color;
+var food_high_color;
+
+var game_time;
 
 function Start() {
-
 	
+	// game settings
+	// BUTTONS HERE
+
+	food_remain = document.getElementById('food-count').value;
+	
+	food_low_color = document.getElementById('food-color-low').value;
+	food_mid_color = document.getElementById('food-color-mid').value;
+	food_high_color = document.getElementById('food-color-high').value;
+
+	game_time = document.getElementById('game-time-input-id').value;
+
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
 	var cnt = 100;
-	var food_remain = 50;
 	var pacman_remain = 1;
 	start_time = new Date();
 	
@@ -128,40 +144,40 @@ function Draw(x) {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 0.25 * Math.PI, 1.75 * Math.PI); // half circle mo
 					context.lineTo(center.x, center.y);
-					context.fillStyle = pac_color; //color
+					context.fillStyle = pac_color;
 					context.fill();
 					context.beginPath();
 					context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI, false); // circle eyes
-					context.fillStyle = "black"; //color
+					context.fillStyle = "black";
 					context.fill();
 				}
 				else if(x==1) {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 1.8 * Math.PI, 1.2 * Math.PI); // half circle mo
 					context.lineTo(center.x, center.y);
-					context.fillStyle = pac_color; //color
+					context.fillStyle = pac_color;
 					context.fill();
 					context.beginPath();
 					context.arc(center.x -15, center.y+15 , 5, 0, 2 * Math.PI, false); // circle eyes
-					context.fillStyle = "black"; //color
+					context.fillStyle = "black";
 					context.fill();
 				}
 				else if(x==2) {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 0.75 * Math.PI, 0.25 * Math.PI); // half circle mo
 					context.lineTo(center.x, center.y);
-					context.fillStyle = pac_color; //color
+					context.fillStyle = pac_color;
 					context.fill();
 					context.beginPath();
 					context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI, false); // circle eyes
-					context.fillStyle = "black"; //color
+					context.fillStyle = "black";
 					context.fill();
 				}
 				else if(x==3) {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 1.25 * Math.PI, 0.75 * Math.PI); // half circle mo
 					context.lineTo(center.x, center.y);
-					context.fillStyle = pac_color; //color
+					context.fillStyle = pac_color;
 					context.fill();
 					context.beginPath();
 					context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI, false); // circle eyes
@@ -184,28 +200,28 @@ function Draw(x) {
 			else if (board[i][j] == 1) {
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
-				context.fillStyle = "red";  // color
+				context.fillStyle = food_low_color;
 				context.fill();
 			}
 			// food-mid
 			else if (board[i][j] == 6) {
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle food
-				context.fillStyle = "blue"; //color
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
+				context.fillStyle = food_mid_color;
 				context.fill();
 			}
 			// food-high
 			else if (board[i][j] == 7) {
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle food
-				context.fillStyle = "gold"; //color
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
+				context.fillStyle = food_high_color;
 				context.fill();
 			}
 			// wall
 			 else if (board[i][j] == 4) {
 				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);// obsticles
-				context.fillStyle = "grey"; //color
+				context.rect(center.x - 30, center.y - 30, 60, 60);
+				context.fillStyle = "grey";
 				context.fill();
 			}
 		}
