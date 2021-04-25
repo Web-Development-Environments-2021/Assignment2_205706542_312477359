@@ -1,3 +1,5 @@
+var scores = []
+
 var current_active_menu_item = "welcome"
 
 function hide_active_menu_item() {
@@ -12,6 +14,9 @@ function hide_active_menu_item() {
 function set_active_menu_item(item_name) {
     hide_active_menu_item();
     current_active_menu_item = item_name;
+    if (item_name == 'scores') {
+        updateScores();
+    }
     $('#' + current_active_menu_item + '-div').show();
 }
 
@@ -149,3 +154,13 @@ $("#settings-form").validate({
         Start();
     }
 });
+
+function updateScores() {
+    // sort the scores array
+    scores.sort(function (first, second) { return (first[1] - second[1]); } );
+
+    for (var i=0; i < scores.length; i++) {
+        document.getElementById('score-table-username-' + i.toString()).innerHTML = scores[i][0];
+        document.getElementById('score-table-time-' + i.toString()).innerHTML = scores[i][1];
+    }
+}

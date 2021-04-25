@@ -330,6 +330,7 @@ function UpdatePosition() {
 		window.alert("Game completed");
 		game_music.pause();
 		game_music.time_elapsed = 0;
+		scores.push([username, time_elapsed]);
 	} 
 	else {
 		Draw(x);
