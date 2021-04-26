@@ -648,8 +648,22 @@ function endGame() {
 	window.clearInterval(interval);
 	window.clearInterval(ghostsInterval);
 	window.clearInterval(bonusInterval);
-	window.alert("Game completed");
 	game_music.pause();
 	game_music.time_elapsed = 0;
-	scores.push([username, time_elapsed]);
+	
+	var endMessage;
+
+	if (lives == 0) {
+		endMessage = "Your score is " + score.toString() + "\nLoser!";
+	}
+	else {
+		scores.push([username, time_elapsed]);
+		if (score < 100) {
+			endMessage = "You are better than " + score.toString() + " points!";
+		}
+		else {
+			endMessage = "Your score is " + score.toString() + "\nWinner!!!";
+		}
+	}
+	window.alert(endMessage);
 }
