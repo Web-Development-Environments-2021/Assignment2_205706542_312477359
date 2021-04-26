@@ -6,6 +6,8 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var ghostsInterval;
+var bonusInterval;
 
 var context = canvas.getContext('2d');
 
@@ -63,7 +65,7 @@ function Start() {
 	let board_objects = configureGameSettings();
 
 	lblUserName.value = username;
-	game_music.play();
+	//game_music.play();
 
 	bonus.show = true;
 	board = new Array();
@@ -141,7 +143,11 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
+	
+	//intervals
+	interval = setInterval(UpdatePosition, 200);
+	ghostsInterval = setInterval(updateGhostPositions, 400);
+	bonusInterval = setInterval(updateBonusPosition, 300);
 }
 
 function configureGameSettings() {
@@ -422,24 +428,6 @@ function UpdatePosition() {
 		}
 	}
 
-	if (bonus.show) {
-		move_bonus();
-	}
-
-	// move monsters closer to pacman
-	if(blinky.show) {
-		moveGhost(blinky);
-	}
-	if(pinky.show) {
-		moveGhost(pinky);
-	}
-	if(clyde.show) {
-		moveGhost(clyde);
-	}
-	if(inky.show) {
-		moveGhost(inky);
-	}
-	
 	if (board[shape.i][shape.j] == 1) {  // food-low
 		score += 5;
 	}
@@ -450,18 +438,7 @@ function UpdatePosition() {
 		score += 25;
 	}
 	else if (board[shape.i][shape.j] == 5 && bonus.show == true) {  // bonus
-		bonus.show = false;
-		// ! add here monster check !
-		score += 50;
-		if (bonus.also == 1) {
-			score += 5;
-		}
-		else if (bonus.also == 6) {
-			score += 15;
-		}
-		else if (bonus.also == 7) {
-			score += 25;
-		}
+		consumeBonus();
 	}
 	
 	board[shape.i][shape.j] = 2;
@@ -504,12 +481,7 @@ function calc_available_bonus_moves() {
 
 function move_bonus() {
 
-	if ( (Math.abs(bonus.x - shape.i) <= 1) && (Math.abs(bonus.y - shape.j) <= 1) ) {
-		board[bonus.x][bonus.y] = bonus.also;
-		bonus.also = board[bonus.x][bonus.y];
-		board[bonus.x][bonus.y] = 5;
-		bonus.x = shape.i;
-		bonus.y = shape.j;
+	if ( Math.abs(bonus.x - shape.i) + Math.abs(bonus.y - shape.j) <= 1) {
 		return;
 	}
 
@@ -555,6 +527,9 @@ function updateLives(num) {
 }
 
 function moveGhost(ghost) {
+
+	board[ghost.i][ghost.j] = ghost.also;
+
 	if (shape.i > ghost.i && ghost.i + 1 < board.length && (board[ghost.i+1][ghost.j]!=4)) { 
 		ghost.i ++ ;
 	}
@@ -579,4 +554,35 @@ function moveGhost(ghost) {
 		ghost.also = board[ghost.i][ghost.j];
 	}
 	board[ghost.i][ghost.j] = ghost.id;
+}
+
+function updateGhostPositions() {
+
+	if(blinky.show) {
+		moveGhost(blinky);
+	}
+	if(pinky.show) {
+		moveGhost(pinky);
+	}
+	if(clyde.show) {
+		moveGhost(clyde);
+	}
+	if(inky.show) {
+		moveGhost(inky);
+	}
+	draw()	
+}
+
+function updateBonusPosition() {
+	if (bonus.show) {
+		move_bonus();
+	}
+}
+
+function consumeBonus() {
+	bonus.show = false;
+	points += 50;
+	if (bonus.also == 1) { points += 5; }
+	if (bonus.also == 6) { points += 15; }
+	if (bonus.also == 7) { points += 25; }
 }
