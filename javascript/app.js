@@ -490,21 +490,33 @@ function updateLives(num) {
 }
 function MoveToBestLocation(ghost)
 {
-	if(shape.i>ghost.i && i+1< board.length)
+	if(shape.i>ghost.i && ghost.i+1< board.length )
 	{
+		if(board[ghost.i+1][ghost.j]!=4)
+		{
 		ghost.i+=1;
+		}
 	}
 	else if(shape.i<ghost.i && i-1>=0)
 	{
+		if(board[ghost.i-1][ghost.j]!=4)
+		{
 		ghost.i-=1;
+		}
 	}
 	else if(shape.j>ghost.j && j+1< board.length)
 	{
+		if(board[ghost.i][ghost.j+1]!=4)
+		{
 		ghost.j+=1;
+		}
 	}
 	else if(shape.j<ghost.j && j-1>=0)
 	{
+		if(board[ghost.i][ghost.j-1]!=4)
+		{
 		ghost.j-=1;
+		}
 	}
 	board[ghost.i][ghost.j]=ghost.id;
 }
