@@ -45,7 +45,7 @@ function Start() {
 	var cnt = 100;
 	var pacman_remain = 1;
 	start_time = new Date();
-	
+
 	for (var i = 0; i < 10; i++) {
 		
 		// 7:food-high, 6:food-mid, 1:food-low, 2:pacman, 0:nothing, 5:bonus, 4:wall
@@ -160,7 +160,7 @@ function Draw(x) {
 	
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
-
+	
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 
@@ -172,6 +172,37 @@ function Draw(x) {
 			context.rect(center.x - 30, center.y - 30, 60, 60);
 			context.fillStyle = "black";
 			context.fill();
+
+			// border	
+			border_color = getRandomColor();
+			if (i==0) {
+				if (j != 4) {
+					context.beginPath();
+					context.rect(center.x - 30, center.y - 30, 1, 60);
+					context.fillStyle = border_color;
+					context.fill();
+				}
+			}
+			if (j==0) {
+				context.beginPath();
+				context.rect(center.x - 30, center.y - 30, 60, 1);
+				context.fillStyle = border_color;
+				context.fill();
+			}
+			if (i==9) {
+				if (j != 4) {
+					context.beginPath();
+					context.rect(center.x + 29, center.y -30, 1, 60);
+					context.fillStyle = border_color;
+					context.fill();
+				}
+			}
+			if (j==9) {
+				context.beginPath();
+				context.rect(center.x - 30, center.y + 29, 60, 1);
+				context.fillStyle = border_color;
+				context.fill();
+			}
 		
 			if (board[i][j] == 2 ) {  // pacman
 				if(x==4) {
@@ -260,7 +291,7 @@ function Draw(x) {
 			}
 
 			else if (board[i][j] == 5 && bonus.show) {  // bonus
-				context.drawImage(bonus.image, center.x - cell_width / 2, center.y - cell_height / 2, cell_height, cell_height);
+				context.drawImage(bonus.image, center.x - (cell_width / 2) + 2, center.y - (cell_height / 2) + 2, cell_width - 4, cell_height - 4);
 			}
 		}
 	}
@@ -282,14 +313,20 @@ function UpdatePosition() {
 			shape.j++;
 		}
 	}
-	if (x == 3) {  // right
+	if (x == 3) {  // left
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
 		}
+		else if (shape.j == 4 && shape.i == 0) {
+			shape.i = 9;
+		}
 	}
-	if (x == 4) {  // left
+	if (x == 4) {  // righgt
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
+		}
+		else if (shape.j == 4 && shape.i == 9) {
+			shape.i = 0;
 		}
 	}
 
@@ -325,6 +362,7 @@ function UpdatePosition() {
 
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
+
 	if (score >= 500 || time_elapsed >= game_time) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
@@ -394,4 +432,16 @@ function move_bonus() {
 	bonus.also = board[bonus.x][bonus.y];
 	board[bonus.x][bonus.y] = 5;
 
+}
+
+function updateLives(num) {
+	var i=1;
+	while (i <= num) {
+		document.getElementById('heart' + i.toString()).style.visibility = 'visible';
+		i++;
+	}
+	while (i <= 5) {
+		document.getElementById('heart' + i.toString()).style.visibility = 'hidden';
+		i++;
+	}
 }

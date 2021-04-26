@@ -136,6 +136,11 @@ footer {
     font-size: 24px;
 }
 
+#game-div p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 #game-div input {
     background-color: black;
     color: yellow;
@@ -146,4 +151,9 @@ footer {
 
 .game-lbl {
     display: inline-block;
+}
+
+.heart {
+    margin-top: 10px;
+    padding-left: 2%;
 }
