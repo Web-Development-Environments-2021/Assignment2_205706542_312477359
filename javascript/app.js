@@ -7,25 +7,6 @@ var start_time;
 var time_elapsed;
 var interval;
 
-var pinky = new Object();
-pinky.image = new Image(cell_width, cell_height);
-pinky.image.src = 'Pinky.PNG';
-pinky.show = true;
-
-var inky = new Object();
-inky.image = new Image(cell_width, cell_height);
-inky.image.src = 'Inky.PNG';
-inky.show = true;
-
-var clyde = new Object();
-clyde.image = new Image(cell_width, cell_height);
-clyde.image.src = 'Clyde.PNG';
-clyde.show = true;
-
-var blinky = new Object();
-blinky.image = new Image(cell_width, cell_height);
-blinky.image.src = 'Blinky.PNG';
-blinky.show = true;
 var context = canvas.getContext('2d');
 
 var cell_height = 60;
@@ -79,7 +60,7 @@ var game_time;
 
 function Start() {
 
-	configureGameSettings();
+	let board_objects = configureGameSettings();
 
 	lblUserName.value = username;
 	game_music.play();
@@ -88,8 +69,6 @@ function Start() {
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
-	var cnt = 100;
-	var pacman_remain = 1;
 	start_time = new Date();
 
 	for (var i = 0; i < 10; i++) {
@@ -100,22 +79,22 @@ function Start() {
 		for (var j = 0; j < 10; j++) {
 			//ghots	
 			if (i == 0 && j == 0 && blinky.show) {
-				board[i][j] = blinky.id
+				board[i][j] = blinky.id;
 				blinky.i = 0;
 				blinky.j = 0;
 			}
 			else if (i == 0 && j == 9 && clyde.show) {
-				board[i][j] = clyde.id
+				board[i][j] = clyde.id;
 				clyde.i = 0;
 				clyde.j = 0;
 			}
 			else if (i == 9 && j == 0 && inky.show) {
-				board[i][j] = inky.id
+				board[i][j] = inky.id;
 				inky.i = 0;
 				inky.j = 0;
 			}
 			else if (i == 0 && j == 0 && pinky.show) {
-				board[i][j] = pinky.id
+				board[i][j] = pinky.id;
 				pinky.i = 0;
 				pinky.j = 0;
 			}
@@ -130,38 +109,15 @@ function Start() {
 				board[i][j] = 4;
 			} 
 			else {
-				var randomNum = Math.random();
-				if (randomNum <= (0.1 * food_remain) / cnt) {
-					food_remain--;
-					board[i][j] = 7;
-				} 
-				else if (randomNum <= (0.3 * food_remain) / cnt) {
-					food_remain--;
-					board[i][j] = 6;
-				}
-				else if (randomNum <= (0.6 * food_remain) / cnt) {
-					food_remain--;
-					board[i][j] = 1;
-				}
-			
-				else if (pacman_remain > 0) {
+				let chosen = Math.floor(Math.random() * board_objects.length);
+				board[i][j] = board_objects[chosen];
+				if (board_objects[chosen] == 2) {
 					shape.i = i;
 					shape.j = j;
-					pacman_remain--;
-					board[i][j] = 2;
-				} 
-				else {
-					board[i][j] = 0;
 				}
-				cnt--;
+				board_objects.splice(chosen, 1);
 			}
 		}
-	}
-	
-	while (food_remain > 0) {
-		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 1;
-		food_remain--;
 	}
 	
 	// bonus
@@ -234,6 +190,21 @@ function configureGameSettings() {
 		clyde.also = 0;
 		blinky.also = 0;
 	}
+
+	let board_objects = [2]
+	for (i=0; i < 0.1*food_remain; i++) {
+		board_objects.push(7);
+	}
+	for (i=0; i < 0.3 *food_remain; i++) {
+		board_objects.push(6);
+	}
+	for (i=0; i < 0.6*food_remain; i++) {
+		board_objects.push(1);
+	}
+	while (board_objects.length < 95 - monster_count) {
+		board_objects.push(0);
+	}
+	return board_objects
 }
 
 function findRandomEmptyCell(board) {
@@ -451,22 +422,22 @@ function UpdatePosition() {
 		}
 	}
 
-	if (bonus.show == true) {
+	if (bonus.show) {
 		move_bonus();
 	}
 
 	// move monsters closer to pacman
-	if(blinky.show == ture) {
-		MoveToBestLocation(blinky);
+	if(blinky.show) {
+		moveGhost(blinky);
 	}
-	if(pinky.show == ture) {
-		MoveToBestLocation(pinky);
+	if(pinky.show) {
+		moveGhost(pinky);
 	}
-	if(clyde.show == true) {
-		MoveToBestLocation(clyde);
+	if(clyde.show) {
+		moveGhost(clyde);
 	}
-	if(inky.show==true) {
-		MoveToBestLocation(inky);
+	if(inky.show) {
+		moveGhost(inky);
 	}
 	
 	if (board[shape.i][shape.j] == 1) {  // food-low
@@ -587,13 +558,13 @@ function moveGhost(ghost) {
 	if (shape.i > ghost.i && ghost.i + 1 < board.length && (board[ghost.i+1][ghost.j]!=4)) { 
 		ghost.i ++ ;
 	}
-	else if (shape.i < ghost.i && i - 1 >= 0 && board[ghost.i - 1][ghost.j] != 4) {
+	else if (shape.i < ghost.i && ghost.i - 1 >= 0 && board[ghost.i - 1][ghost.j] != 4) {
 		ghost.i -= 1;
 	}
-	else if(shape.j > ghost.j && j + 1 < board.length && board[ghost.i][ghost.j + 1]!=4) {
+	else if(shape.j > ghost.j && ghost.j + 1 < board.length && board[ghost.i][ghost.j + 1]!=4) {
 		ghost.j += 1;
 	}
-	else if(shape.j < ghost.j && j - 1 >= 0 && board[ghost.i][ghost.j - 1]!=4) {
+	else if(shape.j < ghost.j && ghost.j - 1 >= 0 && board[ghost.i][ghost.j - 1]!=4) {
 		ghost.j -= 1;
 	}
 	
