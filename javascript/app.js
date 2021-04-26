@@ -8,6 +8,7 @@ var time_elapsed;
 var interval;
 var ghostsInterval;
 var bonusInterval;
+var lives;
 
 var context = canvas.getContext('2d');
 
@@ -73,6 +74,8 @@ function Start() {
 	pac_color = "yellow";
 	start_time = new Date();
 
+	lives = 5;
+
 	for (var i = 0; i < 10; i++) {
 		
 		// 7:food-high, 6:food-mid, 1:food-low, 2:pacman, 0:nothing, 5:bonus, 4:wall
@@ -88,17 +91,17 @@ function Start() {
 			else if (i == 0 && j == 9 && clyde.show) {
 				board[i][j] = clyde.id;
 				clyde.i = 0;
-				clyde.j = 0;
+				clyde.j = 9;
 			}
 			else if (i == 9 && j == 0 && inky.show) {
 				board[i][j] = inky.id;
-				inky.i = 0;
+				inky.i = 9;
 				inky.j = 0;
 			}
-			else if (i == 0 && j == 0 && pinky.show) {
+			else if (i == 9 && j == 9 && pinky.show) {
 				board[i][j] = pinky.id;
-				pinky.i = 0;
-				pinky.j = 0;
+				pinky.i = 9;
+				pinky.j = 9;
 			}
 			//walls
 			else if (
@@ -186,7 +189,7 @@ function configureGameSettings() {
 		clyde.also = 0;
 		blinky.also = 0;
 	}
-	if (monster_count == 3) {
+	if (monster_count == 4) {
 		pinky.show = true;
 		inky.show = true;
 		clyde.show = true;
@@ -197,6 +200,7 @@ function configureGameSettings() {
 		blinky.also = 0;
 	}
 
+	// distribute food
 	let board_objects = [2]
 	for (i=0; i < 0.1*food_remain; i++) {
 		board_objects.push(7);
@@ -258,7 +262,7 @@ function Draw(x) {
 
 			// border	
 			border_color = getRandomColor();
-			if (i==0) {
+			if (i == 0) {
 				if (j != 4) {
 					context.beginPath();
 					context.rect(center.x - 30, center.y - 30, 1, 60);
@@ -266,7 +270,7 @@ function Draw(x) {
 					context.fill();
 				}
 			}
-			if (j==0) {
+			if (j == 0) {
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 1);
 				context.fillStyle = border_color;
@@ -299,7 +303,7 @@ function Draw(x) {
 					context.fillStyle = "black";
 					context.fill();
 				}
-				else if(x==1) {
+				else if(x == 1) {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 1.8 * Math.PI, 1.2 * Math.PI); // half circle mo
 					context.lineTo(center.x, center.y);
@@ -310,7 +314,7 @@ function Draw(x) {
 					context.fillStyle = "black";
 					context.fill();
 				}
-				else if(x==2) {
+				else if(x == 2) {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 0.75 * Math.PI, 0.25 * Math.PI); // half circle mo
 					context.lineTo(center.x, center.y);
@@ -321,7 +325,7 @@ function Draw(x) {
 					context.fillStyle = "black";
 					context.fill();
 				}
-				else if(x==3) {
+				else if(x == 3) {
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 1.25 * Math.PI, 0.75 * Math.PI); // half circle mo
 					context.lineTo(center.x, center.y);
@@ -377,17 +381,16 @@ function Draw(x) {
 				context.drawImage(bonus.image, center.x - (cell_width / 2) + 2, center.y - (cell_height / 2) + 2, cell_width - 4, cell_height - 4);
 			}
 
+			// ghosts
 			else if (board[i][j] == blinky.id && blinky.show) {  // blinky
 				context.drawImage(blinky.image, center.x - (cell_width / 2) + 2, center.y - (cell_height / 2) + 2, cell_width - 4, cell_height - 4);
 			}
-
 			else if (board[i][j] == clyde.id && clyde.show) {  // clyde
 				context.drawImage(clyde.image, center.x - (cell_width / 2) + 2, center.y - (cell_height / 2) + 2, cell_width - 4, cell_height - 4);
 			}
 			else if (board[i][j] == inky.id && inky.show) {  // inky
 				context.drawImage(inky.image, center.x - (cell_width / 2) + 2, center.y - (cell_height / 2) + 2, cell_width - 4, cell_height - 4);
 			}
-			// put pinky
 			else if (board[i][j] == pinky.id && pinky.show) {  // pinky
 				context.drawImage(pinky.image, center.x - (cell_width / 2) + 2, center.y - (cell_height / 2) + 2, cell_width - 4, cell_height - 4);
 			}
@@ -440,6 +443,9 @@ function UpdatePosition() {
 	else if (board[shape.i][shape.j] == 5 && bonus.show == true) {  // bonus
 		consumeBonus();
 	}
+	else if (board[shape.i][shape.j] >= 8 && board[shape.i][shape.j] <= 11) {
+		encounterGhost();
+	}
 	
 	board[shape.i][shape.j] = 2;
 
@@ -447,11 +453,7 @@ function UpdatePosition() {
 	time_elapsed = (currentTime - start_time) / 1000;
 
 	if (score >= 500 || time_elapsed >= game_time) {
-		window.clearInterval(interval);
-		window.alert("Game completed");
-		game_music.pause();
-		game_music.time_elapsed = 0;
-		scores.push([username, time_elapsed]);
+		endGame();
 	} 
 	else {
 		Draw(x);
@@ -515,6 +517,7 @@ function move_bonus() {
 }
 
 function updateLives(num) {
+	//num between 0-5
 	var i=1;
 	while (i <= num) {
 		document.getElementById('heart' + i.toString()).style.visibility = 'visible';
@@ -543,8 +546,11 @@ function moveGhost(ghost) {
 		ghost.j -= 1;
 	}
 	
-	if (
-		(board[ghost.i][ghost.j] != 2) && 
+	if (board[ghost.i][ghost.j] == 2) {
+		encounterGhost();
+	}
+
+	if ( 
 		(board[ghost.i][ghost.j] != 5) && 
 		(board[ghost.i][ghost.j] != 8) && 
 		(board[ghost.i][ghost.j] != 9) && 
@@ -570,7 +576,7 @@ function updateGhostPositions() {
 	if(inky.show) {
 		moveGhost(inky);
 	}
-	draw()	
+	Draw();
 }
 
 function updateBonusPosition() {
@@ -581,8 +587,69 @@ function updateBonusPosition() {
 
 function consumeBonus() {
 	bonus.show = false;
-	points += 50;
-	if (bonus.also == 1) { points += 5; }
-	if (bonus.also == 6) { points += 15; }
-	if (bonus.also == 7) { points += 25; }
+	score += 50;
+	if (bonus.also == 1) { score += 5; }
+	if (bonus.also == 6) { score += 15; }
+	if (bonus.also == 7) { score += 25; }
+}
+
+function encounterGhost() {
+	lives--;
+	updateLives(lives);
+	if (lives == 0) {
+		endGame();
+	}
+	else {
+		resetGhostLocations();
+	}
+}
+
+function resetGhostLocations() {
+	// send ghosts back to the corners
+	// blinky
+	if (blinky.show) {
+		board[blinky.i][blinky.j] = blinky.also;
+		blinky.also = 0;
+		blinky.i = 0;
+		blinky.j = 0;
+		board[0][0] = 8;
+	}
+	// clyde
+	if (clyde.show) {
+		board[clyde.i][clyde.j] = clyde.also;
+		clyde.also = 0;
+		clyde.i = 0;
+		clyde.j = 9;
+		board[0][9] = 9;
+	}
+
+	// inky
+	if (inky.show) {
+		board[inky.i][inky.j] = inky.also;
+		inky.also = 0;
+		inky.i = 9;
+		inky.j = 0;
+		board[9][0] = 10;
+	}
+
+	// pinky
+	if (pinky.show) {
+		board[pinky.i][pinky.j] = pinky.also;
+		pinky.also = 0;
+		pinky.i = 9;
+		pinky.j = 9;
+		board[9][9] = 11;
+	}
+
+	Draw();
+}
+
+function endGame() {
+	window.clearInterval(interval);
+	window.clearInterval(ghostsInterval);
+	window.clearInterval(bonusInterval);
+	window.alert("Game completed");
+	game_music.pause();
+	game_music.time_elapsed = 0;
+	scores.push([username, time_elapsed]);
 }

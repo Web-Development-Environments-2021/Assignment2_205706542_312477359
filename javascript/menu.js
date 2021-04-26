@@ -7,6 +7,8 @@ function hide_active_menu_item() {
         game_music.pause()
         game_music.currentTime = 0;
         window.clearInterval(interval);
+        window.clearInterval(ghostsInterval);
+        window.clearInterval(bonusInterval);
     }
     $('#' + current_active_menu_item + '-div').hide();
 }
