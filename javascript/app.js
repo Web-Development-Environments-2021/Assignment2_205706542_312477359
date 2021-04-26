@@ -6,6 +6,26 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+
+var pinky = new Object();
+pinky.image = new Image(cell_width, cell_height);
+pinky.image.src = 'Pinky.PNG';
+pinky.show = true;
+
+var inky = new Object();
+inky.image = new Image(cell_width, cell_height);
+inky.image.src = 'Inky.PNG';
+inky.show = true;
+
+var clyde = new Object();
+clyde.image = new Image(cell_width, cell_height);
+clyde.image.src = 'Clyde.PNG';
+clyde.show = true;
+
+var blinky = new Object();
+blinky.image = new Image(cell_width, cell_height);
+blinky.image.src = 'Blinky.PNG';
+blinky.show = true;
 var context = canvas.getContext('2d');
 
 var cell_height = 60;
@@ -435,20 +455,20 @@ function UpdatePosition() {
 		move_bonus();
 	}
 
-	// move ghots
-	if(blinky.show) {
-		move_ghost(blinky);
+	// move monsters closer to pacman
+	if(blinky.show == ture) {
+		MoveToBestLocation(blinky);
 	}
-	if(clyde.show) {
-		move_ghost(clyde);
+	if(pinky.show == ture) {
+		MoveToBestLocation(pinky);
 	}
-	if(inky.show) {
-		move_ghost(inky);
+	if(clyde.show == true) {
+		MoveToBestLocation(clyde);
 	}
-	if(pinky.show) {
-		move_ghost(pinky);
+	if(inky.show==true) {
+		MoveToBestLocation(inky);
 	}
-
+	
 	if (board[shape.i][shape.j] == 1) {  // food-low
 		score += 5;
 	}
@@ -563,53 +583,20 @@ function updateLives(num) {
 	}
 }
 
-// ** GHOSTS LOGIC ** //
-function calc_available_ghost_moves(ghost) {
-	// return array of avaliable moves for the ghost
-	// 0-up , 1-down , 2-left , 3-right
-	let available_directions = []
-
-	if (ghost.j > 0 && board[ghost.i][ghost.j - 1] != 4) {  // up
-		available_directions.push(0)
+function moveGhost(ghost) {
+	if (shape.i > ghost.i && ghost.i + 1 < board.length && (board[ghost.i+1][ghost.j]!=4)) { 
+		ghost.i ++ ;
 	}
-	if (ghost.j < 9 && board[ghost.i][ghost.j + 1] != 4) {  // down
-		available_directions.push(1)
+	else if (shape.i < ghost.i && i - 1 >= 0 && board[ghost.i - 1][ghost.j] != 4) {
+		ghost.i -= 1;
 	}
-	if (ghost.i > 0 && board[ghost.i - 1][ghost.j] != 4) {  // left
-		available_directions.push(2)
+	else if(shape.j > ghost.j && j + 1 < board.length && board[ghost.i][ghost.j + 1]!=4) {
+		ghost.j += 1;
 	}
-	if (ghost.i < 9 && board[ghost.i + 1][ghost.j] != 4) {  // right
-		available_directions.push(3)
+	else if(shape.j < ghost.j && j - 1 >= 0 && board[ghost.i][ghost.j - 1]!=4) {
+		ghost.j -= 1;
 	}
-	return available_directions
-}
-
-
-function move_ghost(ghost) {
-
-	let available_directions = calc_available_ghost_moves(ghost);
 	
-	if (ghost.also != 2) {
-		board[ghost.i][ghost.j] = ghost.also;  // put back what was there before
-	}
-
-	let dir = available_directions[Math.floor(Math.random() * available_directions.length)];
-
-	// update ghost coordinates
-	if (dir == 0) {  // up
-		ghost.j -= 1;
-	}
-	else if (dir == 1) {  // down
-		ghost.i += 1;
-	}
-	else if (dir == 2) {  // left
-		ghost.j -= 1;
-	}
-	else if (dir == 3) {  // right
-		ghost.i += 1;
-	}
-
-	// remember what is there
 	if (
 		(board[ghost.i][ghost.j] != 2) && 
 		(board[ghost.i][ghost.j] != 5) && 
