@@ -445,3 +445,23 @@ function updateLives(num) {
 		i++;
 	}
 }
+function CalcBestLocation(ghost)
+{
+	if(shape.i>ghost.i && i+1< board.length)
+	{
+		ghost.i+=1;
+	}
+	else if(shape.i<ghost.i && i-1>=0)
+	{
+		ghost.i-=1;
+	}
+	else if(shape.j>ghost.j && j+1< board.length)
+	{
+		ghost.j+=1;
+	}
+	else if(shape.j<ghost.j && j-1>=0)
+	{
+		ghost.j-=1;
+	}
+	board[i][j]=ghost.id;
+}
