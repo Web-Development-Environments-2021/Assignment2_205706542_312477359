@@ -6,6 +6,26 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+
+var pinky = new Object();
+pinky.image = new Image(cell_width, cell_height);
+pinky.image.src = 'Pinky.PNG';
+pinky.show = true;
+
+var inky = new Object();
+inky.image = new Image(cell_width, cell_height);
+inky.image.src = 'Inky.PNG';
+inky.show = true;
+
+var clyde = new Object();
+clyde.image = new Image(cell_width, cell_height);
+clyde.image.src = 'Clyde.PNG';
+clyde.show = true;
+
+var blinky = new Object();
+blinky.image = new Image(cell_width, cell_height);
+blinky.image.src = 'Blinky.PNG';
+blinky.show = true;
 var context = canvas.getContext('2d');
 
 cell_height = 60;
@@ -334,6 +354,29 @@ function UpdatePosition() {
 		move_bonus();
 	}
 
+	// move monsters closer to pacman
+	if(blinky.show == ture)
+	{
+		MoveToBestLocation(blinky);
+
+	}
+	if(pinky.show == ture)
+	{
+		MoveToBestLocation(pinky);
+
+	}
+	if(clyde.show == true)
+	{
+		MoveToBestLocation(clyde);
+	}
+
+	if(inky.show==true)
+	{
+		MoveToBestLocation(inky);
+	}
+	
+
+
 	if (board[shape.i][shape.j] == 1) {  // food-low
 		score += 5;
 	}
@@ -445,7 +488,7 @@ function updateLives(num) {
 		i++;
 	}
 }
-function CalcBestLocation(ghost)
+function MoveToBestLocation(ghost)
 {
 	if(shape.i>ghost.i && i+1< board.length)
 	{
@@ -463,5 +506,5 @@ function CalcBestLocation(ghost)
 	{
 		ghost.j-=1;
 	}
-	board[i][j]=ghost.id;
+	board[ghost.i][ghost.j]=ghost.id;
 }
