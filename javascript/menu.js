@@ -5,6 +5,7 @@ var current_active_menu_item = "welcome"
 
 function hide_active_menu_item() {
     if (current_active_menu_item == 'game') {
+        $('#side-game-settings').hide();
         game_music.pause()
         game_music.currentTime = 0;
         window.clearInterval(interval);
@@ -19,6 +20,11 @@ function set_active_menu_item(item_name) {
     current_active_menu_item = item_name;
     if (item_name == 'scores') {
         updateScores();
+    }
+    else if (item_name == 'game') {
+        $('#side-game-settings').show();
+        $('#side-game-settings').css({"position":"relative","display":"inline-block"});
+        $('#game-div').css("display","inline-block");
     }
     $('#' + current_active_menu_item + '-div').show();
 }
