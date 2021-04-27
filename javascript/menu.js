@@ -1,4 +1,5 @@
 var scores = []
+var keys=[]
 
 var current_active_menu_item = "welcome"
 
@@ -129,24 +130,34 @@ function setKey(event, direction) {
     keyName = getKeyName(keyCode)
     document.getElementById(direction + 'Key').value = keyName;
     
+    
+    
     if (direction == 'up') {
         key_up = event.keyCode;
+        lblChosenUp.value = keyName; 
     }
     else if (direction == 'down') {
         key_down = event.keyCode;
+        lblChosenDown.value = keyName;  
     }
     else if (direction == 'left') {
         key_left = event.keyCode;
+        lblChosenLeft.value = keyName;   
     }
     else if (direction == 'right') {
         key_right = event.keyCode;
+        lblChosenRight.value = keyName;
     }
 }
+
+
 
 function updateSliderValue() {
     var slider = document.getElementById("food-count");
     var output = document.getElementById("display-food-count");
+    
     output.innerHTML = slider.value;
+    lblFood.value= slider;
 }
 
 // validate game settings

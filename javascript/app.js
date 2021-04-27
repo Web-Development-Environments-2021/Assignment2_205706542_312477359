@@ -66,7 +66,7 @@ function Start() {
 	let board_objects = configureGameSettings();
 
 	lblUserName.value = username;
-	//game_music.play();
+	game_music.play();
 
 	bonus.show = true;
 	board = new Array();
@@ -162,6 +162,9 @@ function configureGameSettings() {
 	food_high_color = document.getElementById('food-color-high').value;
 
 	game_time = document.getElementById('game-time-input-id').value;
+	
+	lblChosenTime.value = game_time;
+	
 
 	monster_count = document.getElementById('monster-count-id').value;
 
@@ -533,17 +536,67 @@ function moveGhost(ghost) {
 
 	board[ghost.i][ghost.j] = ghost.also;
 
-	if (shape.i > ghost.i && ghost.i + 1 < board.length && (board[ghost.i+1][ghost.j]!=4)) { 
+	if (shape.i > ghost.i && ghost.i + 1 < board.length ) { 
+		if(board[ghost.i+1][ghost.j]!=4 && board[ghost.i + 1][ghost.j]<8) // prevents wall encounter
+		{
 		ghost.i ++ ;
+		}
+		else if(shape.j > ghost.j && ghost.j + 1 < board.length) // find another soloution 
+		{
+			ghost.j += 1;
+			
+		}
+		else
+		{
+			ghost.j-=1;
+		}
 	}
-	else if (shape.i < ghost.i && ghost.i - 1 >= 0 && board[ghost.i - 1][ghost.j] != 4) {
+	else if (shape.i < ghost.i && ghost.i - 1 >= 0 ) {
+		if(board[ghost.i - 1][ghost.j] != 4 && board[ghost.i - 1][ghost.j]<8) 
+		{
 		ghost.i -= 1;
+		}
+		else if(shape.j > ghost.j && ghost.j + 1 < board.length)
+		{
+			ghost.j += 1;
+			
+		}
+		else
+		{
+			ghost.j-=1;
+		}
+
 	}
-	else if(shape.j > ghost.j && ghost.j + 1 < board.length && board[ghost.i][ghost.j + 1]!=4) {
+	else if(shape.j > ghost.j && ghost.j + 1 < board.length) {
+		if(board[ghost.i][ghost.j + 1]!=4 && board[ghost.i][ghost.j + 1]<8)
+		{
 		ghost.j += 1;
+		}
+		else if(shape.i > ghost.i && ghost.i + 1 < board.length)
+		{
+			ghost.i += 1;
+			
+		}
+		else
+		{
+			ghost.i-=1;
+		}
+
 	}
-	else if(shape.j < ghost.j && ghost.j - 1 >= 0 && board[ghost.i][ghost.j - 1]!=4) {
+	else if(shape.j < ghost.j && ghost.j - 1 >= 0) {
+
+		if( board[ghost.i][ghost.j - 1]!=4 && board[ghost.i][ghost.j - 1]<8)
+		{
 		ghost.j -= 1;
+		}
+		else if(shape.i > ghost.i && ghost.i + 1 < board.length)
+		{
+			ghost.i += 1;
+		}
+		else
+		{
+			ghost.i-=1;
+		}
 	}
 	
 	if (board[ghost.i][ghost.j] == 2) {
