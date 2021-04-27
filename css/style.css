@@ -158,18 +158,11 @@ footer {
     padding-left: 2%;
 }
 
-#new-game-btn-id {
+.sideGameMenu {
+    width: 50%;
+    overflow: auto;
     font-family: vt323;
-    font-size: 20px;
-    color: yellow;
-    background-color: rgba(255, 255, 255, 0.2);    
-}
-
-#new-game-btn-id:hover{
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-#side-game-settings {
-    display: none;
-    vertical-align: top;
+   
+    background-color: blueviolet;
+    margin-left: 25%;
 }

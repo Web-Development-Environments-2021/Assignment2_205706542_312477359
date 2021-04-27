@@ -240,15 +240,35 @@
 				<p>THIS GAME WAS DEVELOPED BY NIR STEINFELD AND OMER MARCO</p>
 			    <p>IT IS CURRENTLY THE BEST PACMAN GAME KNOWN TO EXIST</p>
 				<p>WE USE JQUERY TO VALIDATE USER INPUT</p>
-				<p>*** PUT DIFFICULTIES HERE ***</p>
+				<p>!!!INSERT DIFICULTIES HERE!!</p>
 			</div>
 		</div>
 
 		<!--****************** GAME ******************-->
+		<div class="sideGameMenu">
+			
 		
+			<p id="TimeShow">   </p>
+			
+		
+			<p id="keyDownShow">&#x2193;   down arrow</p>
+			
+			<p id="keyLeftShow">&#x2190; left arrow</p>
+			<p id="keyUpShow"> &#x2191;  up arrow</p>
+			
+			<p id="keyRightShow"> &#x2192; right arrow</p>
+		
+
+
+			<p id="FoodShow"> </p>
+			<p id="MonsterShow"> </p>
+			
+				
+		</div>
 		<center>
 			<div id="game-div" class="div-box">
-					
+				
+				
 				<p>
 					<div id="user-name" class='game-lbl'>
 						<label for="lblUserName">UserName:</label>
@@ -270,45 +290,16 @@
 					<img id='heart4' class='heart' src="./media/heart.png" style="width:30px; height:30px;">
 					<img id='heart5' class='heart' src="./media/heart.png" style="width:30px; height:30px;">
 					
-					<button id='new-game-btn-id' onclick="set_active_menu_item('settings')">NEW GAME</button>
-
 				</p>
-				   	
+				   
+				
+				
+				
 				<div id="game">
 					
 					<canvas id="canvas" height="600" width="600"></canvas>
 				</div>
 			</div>
-		
-
-		<div id="side-game-settings">
-			<P align=right><div id="time" class='game-lbl'>
-				<label for="lblChosenTime">Chosen Time:</label>
-				<input id="lblChosenTime" type="text" readonly/>
-			</div></P>
-			<P align=right><div id="Food:" class='game-lbl'>
-				<label for="lblFood">Food:</label>
-				<input id="lblFood" type="text" readonly/>
-			</div></P>
-			<P align=right><div id="Key Right:" class='game-lbl'>
-				<label for="lblChosenRight">Key Right:</label>
-				<input id="lblChosenRight" type="text" readonly/>
-			</div></P>
-			<P align=right><div id="Key left:" class='game-lbl'>
-				<label for="lblChosenLeft">Key Left:</label>
-				<input id="lblChosenLeft" type="text" readonly/>
-			</div></P>
-			<P align=right><div id="Key Down:" class='game-lbl'>
-				<label for="lblChosenDown">Key Down:</label>
-				<input id="lblChosenDown" type="text" readonly/>
-			</div></P>
-			<P align=right><div id="Key Up:" class='game-lbl'>
-				<label for="lblChosenUp">Key Up:</label>
-				<input id="lblChosenUp" type="text" readonly/>
-			</div></P>
-				
-		</div>
-
 		</center>
 
 		<!--****************** FOOTER ******************-->

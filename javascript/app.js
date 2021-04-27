@@ -63,16 +63,10 @@ var game_time;
 
 function Start() {
 
-	window.addEventListener("keydown", function(e) {
-		if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
-			e.preventDefault();
-		}
-	}, false);
-
 	let board_objects = configureGameSettings();
 
 	lblUserName.value = username;
-	//game_music.play();
+	game_music.play();
 
 	bonus.show = true;
 	board = new Array();
@@ -160,8 +154,9 @@ function Start() {
 }
 
 function configureGameSettings() {
-
+	food_dispaly = document.getElementById('food-count').value;
 	food_remain = document.getElementById('food-count').value;
+	document.getElementById("FoodShow").innerHTML= "Food Balls:				"+food_dispaly;
 	
 	food_low_color = document.getElementById('food-color-low').value;
 	food_mid_color = document.getElementById('food-color-mid').value;
@@ -169,10 +164,11 @@ function configureGameSettings() {
 
 	game_time = document.getElementById('game-time-input-id').value;
 	
-	lblChosenTime.value = game_time;
+	document.getElementById("TimeShow").innerHTML= "Chosen Time:				" +  game_time+"			seconds";
 	
 
 	monster_count = document.getElementById('monster-count-id').value;
+	document.getElementById("MonsterShow").innerHTML= "Number Of Monsters:				" + monster_count;
 
 	if (monster_count == 1) {
 		pinky.show = false;
@@ -543,7 +539,7 @@ function moveGhost(ghost) {
 	board[ghost.i][ghost.j] = ghost.also;
 
 	if (shape.i > ghost.i && ghost.i + 1 < board.length ) { 
-		if(board[ghost.i+1][ghost.j]!=4 && board[ghost.i + 1][ghost.j] < 8) // prevents wall encounter
+		if(board[ghost.i+1][ghost.j]!=4 && board[ghost.i + 1][ghost.j]<8) // prevents wall encounter
 		{
 		ghost.i ++ ;
 		}
@@ -574,7 +570,7 @@ function moveGhost(ghost) {
 
 	}
 	else if(shape.j > ghost.j && ghost.j + 1 < board.length) {
-		if(board[ghost.i][ghost.j + 1]!=4 && board[ghost.i][ghost.j + 1] < 8)
+		if(board[ghost.i][ghost.j + 1]!=4 && board[ghost.i][ghost.j + 1]<8)
 		{
 		ghost.j += 1;
 		}
@@ -591,7 +587,7 @@ function moveGhost(ghost) {
 	}
 	else if(shape.j < ghost.j && ghost.j - 1 >= 0) {
 
-		if( board[ghost.i][ghost.j - 1]!=4 && board[ghost.i][ghost.j - 1] < 8)
+		if( board[ghost.i][ghost.j - 1]!=4 && board[ghost.i][ghost.j - 1]<8)
 		{
 		ghost.j -= 1;
 		}
@@ -654,9 +650,6 @@ function consumeBonus() {
 
 function encounterGhost() {
 	lives--;
-	if (score >= 10) {
-		score -= 10;
-	}
 	updateLives(lives);
 	if (lives == 0) {
 		endGame();
@@ -664,8 +657,6 @@ function encounterGhost() {
 	else {
 		resetGhostLocations();
 	}
-	randomizePlayerPosition();
-	Draw();
 }
 
 function resetGhostLocations() {
@@ -730,16 +721,4 @@ function endGame() {
 		}
 	}
 	window.alert(endMessage);
-}
-
-function randomizePlayerPosition() {
-	let new_i = Math.floor(Math.random() * 10);
-	let new_j = Math.floor(Math.random() * 10);
-	while (board[new_i][new_j] != 0) {
-		new_i = Math.floor(Math.random() * 10);
-		new_j = Math.floor(Math.random() * 10);
-	}
-	board[new_i][new_j] = 2;
-	shape.i = new_i;
-	shape.j = new_j;
 }
