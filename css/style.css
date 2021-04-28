@@ -172,4 +172,7 @@ footer {
 #side-game-settings {
     display: none;
     vertical-align: top;
+    font-family: vt323;
+    font-size: 24px;
+    background-color: blueviolet;
 }
