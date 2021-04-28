@@ -173,6 +173,6 @@ footer {
     display: none;
     vertical-align: top;
     font-family: vt323;
-    font-size: 24px;
-    background-color: blueviolet;
+    font-size: 28px;
+    background-color: rgba(153, 0, 153, 0.5);
 }

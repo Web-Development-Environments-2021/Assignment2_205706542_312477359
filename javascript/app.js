@@ -66,7 +66,7 @@ function Start() {
 	let board_objects = configureGameSettings();
 
 	lblUserName.value = username;
-	game_music.play();
+	game_music.play();	
 
 	bonus.show = true;
 	board = new Array();
@@ -156,7 +156,7 @@ function Start() {
 function configureGameSettings() {
 	food_dispaly = document.getElementById('food-count').value;
 	food_remain = document.getElementById('food-count').value;
-	document.getElementById("FoodShow").innerHTML= "Food Balls:				"+food_dispaly;
+	document.getElementById("FoodShow").innerHTML= "FOOD BALLS:				"+food_dispaly;
 	
 	food_low_color = document.getElementById('food-color-low').value;
 	food_mid_color = document.getElementById('food-color-mid').value;
@@ -164,11 +164,11 @@ function configureGameSettings() {
 
 	game_time = document.getElementById('game-time-input-id').value;
 	
-	document.getElementById("TimeShow").innerHTML= "Chosen Time:				" +  game_time+"			seconds";
+	document.getElementById("TimeShow").innerHTML= "GAME TIME:				" +  game_time+"			seconds";
 	
 
 	monster_count = document.getElementById('monster-count-id').value;
-	document.getElementById("MonsterShow").innerHTML= "Number Of Monsters:				" + monster_count;
+	document.getElementById("MonsterShow").innerHTML= "NUMBER OF GHOSTS:				" + monster_count;
 
 	if (monster_count == 1) {
 		pinky.show = false;

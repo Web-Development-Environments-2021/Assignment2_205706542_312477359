@@ -135,24 +135,19 @@ function setKey(event, direction) {
     keyCode = event.keyCode;
     keyName = getKeyName(keyCode)
     document.getElementById(direction + 'Key').value = keyName;
-    
-    
-    
+    document.getElementById(direction + 'KeyShow').innerHTML += keyName;
+
     if (direction == 'up') {
         key_up = event.keyCode;
-        lblChosenUp.value = keyName; 
     }
     else if (direction == 'down') {
         key_down = event.keyCode;
-        lblChosenDown.value = keyName;  
     }
     else if (direction == 'left') {
         key_left = event.keyCode;
-        lblChosenLeft.value = keyName;   
     }
     else if (direction == 'right') {
         key_right = event.keyCode;
-        lblChosenRight.value = keyName;
     }
 }
 
