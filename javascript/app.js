@@ -661,6 +661,8 @@ function encounterGhost() {
 	else {
 		resetGhostLocations();
 	}
+	setPlayerInRandomPosition();
+	Draw();
 }
 
 function resetGhostLocations() {
@@ -699,8 +701,6 @@ function resetGhostLocations() {
 		pinky.j = 9;
 		board[9][9] = 11;
 	}
-
-	Draw();
 }
 
 function endGame() {
@@ -743,4 +743,21 @@ function flashNewGameButton() {
 			btn.style.color = 'yellow';
 			btn.style.backgroundColor = 'black';
 		}
+}
+
+function setPlayerInRandomPosition() {
+	
+	let new_i = Math.floor(Math.random() * 10);
+	let new_j = Math.floor(Math.random() * 10);
+
+	while (board[new_i][new_j] != 0) {
+		new_i = Math.floor(Math.random() * 10);
+		new_j = Math.floor(Math.random() * 10);
+	}
+
+	shape.i = new_i;
+	shape.j = new_j;
+
+	board[new_i][new_j] = 2;
+
 }
