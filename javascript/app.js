@@ -69,7 +69,7 @@ function Start() {
 	window.clearInterval(flashNewGameButtonInterval);
 
 	lblUserName.value = username;
-	//game_music.play();	
+	game_music.play();	
 
 	bonus.show = true;
 	board = new Array();
