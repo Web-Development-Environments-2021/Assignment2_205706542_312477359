@@ -8,6 +8,7 @@ var time_elapsed;
 var interval;
 var ghostsInterval;
 var bonusInterval;
+var flashNewGameButtonInterval;
 var lives;
 
 var context = canvas.getContext('2d');
@@ -65,8 +66,10 @@ function Start() {
 
 	let board_objects = configureGameSettings();
 
+	window.clearInterval(flashNewGameButtonInterval);
+
 	lblUserName.value = username;
-	game_music.play();	
+	//game_music.play();	
 
 	bonus.show = true;
 	board = new Array();
@@ -156,7 +159,7 @@ function Start() {
 function configureGameSettings() {
 	food_dispaly = document.getElementById('food-count').value;
 	food_remain = document.getElementById('food-count').value;
-	document.getElementById("FoodShow").innerHTML= "FOOD BALLS:				"+food_dispaly;
+	document.getElementById("FoodShow").innerHTML = 'FOOD BALLS: ' + food_dispaly;
 	
 	food_low_color = document.getElementById('food-color-low').value;
 	food_mid_color = document.getElementById('food-color-mid').value;
@@ -164,11 +167,12 @@ function configureGameSettings() {
 
 	game_time = document.getElementById('game-time-input-id').value;
 	
-	document.getElementById("TimeShow").innerHTML= "GAME TIME:				" +  game_time+"			seconds";
+	document.getElementById("TimeShow").innerHTML = 'GAME TIME: ' + game_time + " SECONDS";
 	
 
 	monster_count = document.getElementById('monster-count-id').value;
-	document.getElementById("MonsterShow").innerHTML= "NUMBER OF GHOSTS:				" + monster_count;
+	
+	document.getElementById("MonsterShow").innerHTML = 'NUMBER OF GHOSTS: ' + monster_count;
 
 	if (monster_count == 1) {
 		pinky.show = false;
@@ -720,5 +724,23 @@ function endGame() {
 			endMessage = "Your score is " + score.toString() + "\nWinner!!!";
 		}
 	}
+
+	flashNewGameButtonInterval = setInterval(flashNewGameButton, 500);
+
 	window.alert(endMessage);
+}
+
+function flashNewGameButton() {
+
+	var btn = document.getElementById('new-game-btn-id');
+
+	var tmpColorCheck = btn.style.color;
+
+		if (tmpColorCheck === 'yellow') {
+			btn.style.color = 'black';
+			btn.style.backgroundColor = 'yellow';
+		} else {
+			btn.style.color = 'yellow';
+			btn.style.backgroundColor = 'black';
+		}
 }

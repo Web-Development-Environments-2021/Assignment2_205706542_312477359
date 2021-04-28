@@ -70,9 +70,16 @@ function randomizeSettings() {
     document.getElementById('leftKey').value = 'Arrow Left';
     document.getElementById('rightKey').value = 'Arrow Right';
 
+    document.getElementById('upKeyShow').innerHTML = ' &#x2191; : UP ARROW';
+    document.getElementById('downKeyShow').innerHTML = '&#x2193; : DOWN ARROW';
+    document.getElementById('leftKeyShow').innerHTML = '&#x2190; : LEFT ARROW';
+    document.getElementById('rightKeyShow').innerHTML =  '&#x2192; : RIGHT ARROW';
+
     let randomFoodCount = Math.floor(Math.random() * (90 - 50) ) + 50;
     document.getElementById('food-count').value = randomFoodCount;
     updateSliderValue()
+
+    document.getElementById('FoodShow').innerHTML = 'FOOD BALLS: ' + randomFoodCount;
     
     document.getElementById('food-color-low').value = getRandomColor();
     document.getElementById('food-color-mid').value = getRandomColor();
@@ -80,17 +87,23 @@ function randomizeSettings() {
 
     let randomGameTime = Math.floor(Math.random() * (180 - 60) ) + 60;
     document.getElementById('game-time-input-id').value = randomGameTime
+    
+    document.getElementById("TimeShow").innerHTML = "GAME TIME: " + randomGameTime + " SECONDS";
 
-    selectRandom()  // select a random monster count
+    let randomMonsterCount = selectRandomMonsterCount()  // select a random monster count
+    document.getElementById("MonsterShow").innerHTML = 'NUMBER OF GHOSTS: ' + randomMonsterCount;
+
 }
 
-function selectRandom() {
+function selectRandomMonsterCount() {
     // selecting a random option form the monster count options in settings
     var select = document.getElementById('monster-count-id');
     var items = select.getElementsByTagName('option');
     var index = Math.floor(Math.random() * items.length);
 
     select.selectedIndex = index;
+
+    return index + 1;
 }
 
 function getKeyName(keyCode)
@@ -128,37 +141,37 @@ function highlightKeyButton(direction) {
 
 function setKey(event, direction) {
 	
-    resetKeyButtonsColors()
+    resetKeyButtonsColors();
     document.getElementById(direction + 'Key').style.backgroundColor = 'yellow';
     let keyName;
 	let keyCode;
     keyCode = event.keyCode;
     keyName = getKeyName(keyCode)
     document.getElementById(direction + 'Key').value = keyName;
-    document.getElementById(direction + 'KeyShow').innerHTML += keyName;
 
     if (direction == 'up') {
         key_up = event.keyCode;
+        document.getElementById('upKeyShow').innerHTML = '&#x2191; : ' + keyName;
     }
     else if (direction == 'down') {
         key_down = event.keyCode;
+        document.getElementById('downKeyShow').innerHTML = '&#x2193; : ' + keyName;
     }
     else if (direction == 'left') {
         key_left = event.keyCode;
+        document.getElementById('leftKeyShow').innerHTML = '&#x2190; : ' + keyName;
     }
     else if (direction == 'right') {
         key_right = event.keyCode;
+        document.getElementById('rightKeyShow').innerHTML = '&#x2192; : ' + keyName;
     }
 }
-
-
 
 function updateSliderValue() {
     var slider = document.getElementById("food-count");
     var output = document.getElementById("display-food-count");
     
     output.innerHTML = slider.value;
-    lblFood.value= slider;
 }
 
 // validate game settings

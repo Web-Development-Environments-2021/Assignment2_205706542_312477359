@@ -170,6 +170,7 @@ footer {
 }
 
 #side-game-settings {
+    margin-top: 2%;
     display: none;
     vertical-align: top;
     font-family: vt323;
